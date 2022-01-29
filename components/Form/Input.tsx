@@ -8,8 +8,7 @@ type Props = {
 const Input = forwardRef(({ ...rest }: Props, ref) => (
   <__Input
     size="sm"
-    rounded="none"
-    borderColor="primary.base"
+    rounded="4px"
     ref={ref as LegacyRef<HTMLInputElement> | undefined}
     {...rest}
   />

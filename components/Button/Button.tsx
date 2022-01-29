@@ -7,12 +7,8 @@ type Props = {
   [x: string]: any;
 };
 
-const Button = ({ children, primary, navItem, ...rest }: Props) => (
-  <__Button
-    size="sm"
-    variant={primary ? "base" : navItem ? "nav-item" : "secondary"}
-    {...rest}
-  >
+const Button = ({ children, primary, tabItem, ...rest }: Props) => (
+  <__Button size="sm" variant={tabItem ? "tab-item" : "base"} {...rest}>
     {children}
   </__Button>
 );
