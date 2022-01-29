@@ -23,6 +23,18 @@ const HomePage: NextPage = () => {
             numeric: true, // Right Align
             width: "10px",
           },
+          {
+            id: "type",
+            label: "Type",
+            numeric: true, // Right Align
+            width: "10px",
+          },
+          {
+            id: "vendors",
+            label: "Vendors",
+            numeric: true, // Right Align
+            width: "10px",
+          },
         ]}
       />
     </Box>

@@ -16,7 +16,10 @@ interface DataTableProps {
 }
 
 const DataTable: React.FC<DataTableProps> = ({ columns }) => {
-  const gridTemplateColumns = columns?.reduce((acc, col) => "", "");
+  const gridTemplateColumns = columns?.reduce((acc, col) => acc + "1fr ", "");
+
+  console.log(gridTemplateColumns);
+  console.log(columns.length);
 
   return (
     <Box as="section" data-testId="data-table" {...layoutStyles} py={5}>
@@ -45,7 +48,7 @@ const DataTable: React.FC<DataTableProps> = ({ columns }) => {
         <Box {...layoutStyles} mt={5}>
           {/* Head */}
           <Grid
-            //   gridTemplateColumns={gridTemplateColumns}
+            gridTemplateColumns={gridTemplateColumns}
             gridGap={5}
             borderBottom={layoutStyles.border}
             borderColor={layoutStyles.borderColor}
