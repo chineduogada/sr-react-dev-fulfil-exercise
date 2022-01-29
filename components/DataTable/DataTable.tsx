@@ -1,4 +1,4 @@
-import { Box, Flex, Grid } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, Grid, Icon, Text } from "@chakra-ui/react";
 import Button from "components/Button/Button";
 import Input from "components/Form/Input";
 import React from "react";
@@ -16,7 +16,10 @@ interface DataTableProps {
 }
 
 const DataTable: React.FC<DataTableProps> = ({ columns }) => {
-  const gridTemplateColumns = columns?.reduce((acc, col) => acc + "1fr ", "");
+  const gridTemplateColumns = columns?.reduce(
+    (acc, col) => acc + "1fr ",
+    "100px "
+  );
 
   console.log(gridTemplateColumns);
   console.log(columns.length);
@@ -45,21 +48,38 @@ const DataTable: React.FC<DataTableProps> = ({ columns }) => {
           />
         </Flex>
 
-        <Box {...layoutStyles} mt={5}>
+        <Box mt={5}>
           {/* Head */}
           <Grid
             gridTemplateColumns={gridTemplateColumns}
             gridGap={5}
             borderBottom={layoutStyles.border}
             borderColor={layoutStyles.borderColor}
+            h="60px"
+            alignItems={"center"}
           >
-            {columns?.map(({ id, label, width }) => (
-              <Box
-                key={id}
-                data-testid={`data-table-column`}
-                //   width={width}
+            <Box>
+              <Flex
+                gridGap="1"
+                p={"3px"}
+                bg="accent.2"
+                w="fit-content"
+                {...layoutStyles}
+                alignItems={"center"}
               >
-                {label}
+                <Checkbox />
+
+                <Icon transform="translate(2px, 2px)">
+                  <BsCaretDownFill />
+                </Icon>
+              </Flex>
+            </Box>
+
+            {columns?.map(({ id, label }) => (
+              <Box key={id} data-testid={`data-table-column`}>
+                <Text fontWeight={"bold"} fontSize="xs">
+                  {label}
+                </Text>
               </Box>
             ))}
           </Grid>
