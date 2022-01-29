@@ -9,4 +9,5 @@ module.exports = {
     "^theme(.*)$": "<rootDir>/theme$1",
     "^utils(.*)$": "<rootDir>/utils$1",
   },
+  testEnvironment: "jsdom",
 };
