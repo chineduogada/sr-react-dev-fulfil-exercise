@@ -1,0 +1,305 @@
+Synthesizing 7/10 solutions
+
+=======
+
+        <Text fontWeight="bold" fontSize="sm" bg="accent.6" color="white" d="in">
+          HOT
+        </Text>
+
+        <Text fontWeight="bold" fontSize="sm" bg="accent.6" color="white" d="in">
+          AD
+        </Text>
+
+        <HotAd />
+      </Box>
+    </Box>
+  );
+};
+
+export default Home;
+
+=======
+
+        <Text fontWeight="bold" fontSize="sm" bg="accent.6" color="white" d="in">
+          New
+        </Text>
+        <Text
+          fontWeight="bold"
+          fontSize="sm"
+          bg="accent.1"
+          color="white"
+          d="in"
+          pos="absolute"
+          p={2}
+          left={0}
+          top={0}
+        >
+          $100
+        </Text>
+      </Box>
+
+      <Box
+        boxSize="180px"
+        border="1px"
+        pos="relative"
+        p={4}
+        bg="white"
+        d="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Text fontWeight="bold" fontSize="sm" d="in">
+          Nike Air Max
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" d="in">
+          $100
+        </Text>
+      </Box>
+    </Box>
+  );
+};
+
+export default Home;
+
+=======
+
+        <Text fontWeight="bold" fontSize="sm" bg="accent.6" color="white" d="in">
+          HOT
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.1" color="white" d="in">
+          HOT
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.2" color="white" d="in">
+          HOT
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.3" color="white" d="in">
+          HOT
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.4" color="white" d="in">
+          HOT
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.5" color="white" d="in">
+          HOT
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.6" color="white" d="in">
+          HOT
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.1" color="white" d="in">
+          HOT
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.2" color="white" d="in">
+          HOT
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.3" color="white" d="in">
+          HOT
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.4" color="white" d="in">
+          HOT
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.5" color="white" d="in">
+          HOT
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.6" color="white" d="in">
+          HOT
+        </Text>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.1" color="white" d="in">
+          HOT
+
+=======
+
+        <Text fontWeight="bold" fontSize="sm" bg="accent.6" color="white" d="in">
+          New
+        </Text>
+        <Box
+          pos="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          bg="accent.2"
+        />
+      </Box>
+
+      <Box p={4}>
+        <Text fontSize="sm">
+          <Text
+            fontWeight="bold"
+            fontSize="sm"
+            color="accent.4"
+            as="span"
+            d="in"
+          >
+            $199
+          </Text>
+          <Text fontSize="sm" color="accent.4">
+            $299
+          </Text>
+        </Text>
+        <Text fontSize="sm" color="accent.4">
+          $299
+        </Text>
+        <Text fontSize="sm" color="accent.4">
+          $299
+        </Text>
+      </Box>
+    </Box>
+  );
+};
+
+export default Home;
+
+=======
+
+        <Text fontWeight="bold" fontSize="sm" bg="accent.6" color="white" d="in">
+          Hot
+        </Text>
+
+        <Text fontWeight="bold" fontSize="sm" bg="accent.4" color="white" d="in">
+          Ad
+        </Text>
+      </Box>
+
+      <Box p={2}>
+        <Text fontWeight="bold" fontSize="sm" bg="accent.4" color="white" d="in">
+          Nike
+        </Text>
+
+        <Text fontWeight="bold" fontSize="sm" bg="accent.4" color="white" d="in">
+          Air Max
+        </Text>
+
+        <Text fontWeight="bold" fontSize="sm" bg="accent.4" color="white" d="in">
+          2020
+        </Text>
+
+        <Text fontWeight="bold" fontSize="sm" bg="accent.4" color="white" d="in">
+          Running
+        </Text>
+      </Box>
+    </Box>
+  );
+};
+
+export default Home;
+
+=======
+
+        <Text fontWeight="bold" fontSize="sm" bg="accent.6" color="white" d="in">
+          30% OFF
+        </Text>
+        <Box
+          pos="absolute"
+          top={0}
+          left={0}
+          boxSize="180px"
+          border="1px"
+          bg="accent.2"
+        ></Box>
+        <Box
+          pos="absolute"
+          top={0}
+          right={0}
+          boxSize="180px"
+          border="1px"
+          bg="accent.2"
+        ></Box>
+        <Box
+          pos="absolute"
+          bottom={0}
+          left={0}
+          boxSize="180px"
+          border="1px"
+          bg="accent.2"
+        ></Box>
+        <Box
+          pos="absolute"
+          bottom={0}
+          right={0}
+          boxSize="180px"
+          border="1px"
+          bg="accent.2"
+        ></Box>
+        <Box
+          pos="absolute"
+          top={0}
+          left={0}
+          boxSize="180px"
+          border="1px"
+          bg="accent.3"
+        ></Box>
+        <Box
+          pos="absolute"
+          top={0}
+          right={0}
+          boxSize="180px"
+          border="1px"
+          bg="accent.3"
+        ></Box>
+        <Box
+          pos="absolute"
+          bottom={0}
+          left={0}
+          boxSize="180px"
+          border="1px"
+          bg="accent.3"
+        ></Box>
+        <Box
+          pos="absolute"
+          bottom={0}
+          right={0}
+          boxSize="180px"
+          border="1px"
+          bg="accent.3"
+        ></Box>
+        <Box
+          pos="absolute"
+          top={0}
+          left={0}
+          boxSize="180px"
+          border="1px"
+          bg="accent.4"
+        ></Box>
+        <Box
+          pos="absolute"
+
+=======
+
+        <Text fontWeight="bold" fontSize="sm" bg="accent.6" color="white" d="in">
+          Hot
+        </Text>
+        <Box
+          pos="absolute"
+          top={0}
+          right={0}
+          boxSize="40px"
+          bg="primary"
+          border="1px"
+          borderColor="accent.2"
+          p={2}
+          color="white"
+        >
+          <Text fontWeight="bold" fontSize="sm">
+            $1,000
+          </Text>
+        </Box>
+        <Box
+          pos="absolute"
+          bottom={0}
+          left={0}
+          boxSize="40px"
+          bg="primary"
+          border="1px"
+          borderColor="accent.2"
+          p={2}
+          color="white"
+        >
+          <Text fontWeight="bold" fontSize="sm">
+            $1,000
+          </Text>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+export default Home;
