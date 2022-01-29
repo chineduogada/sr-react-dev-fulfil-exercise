@@ -9,7 +9,22 @@ const HomePage: NextPage = () => {
         Sr. React Developer - Fulfil Recruiting Exercise
       </Heading>
 
-      <DataTable />
+      <DataTable
+        columns={[
+          {
+            id: "product",
+            label: "Product",
+            numeric: false,
+            width: "10px",
+          },
+          {
+            id: "price",
+            label: "Price",
+            numeric: true, // Right Align
+            width: "10px",
+          },
+        ]}
+      />
     </Box>
   );
 };

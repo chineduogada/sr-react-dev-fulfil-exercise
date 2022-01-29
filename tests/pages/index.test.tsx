@@ -17,6 +17,6 @@ describe("HomePage", () => {
 
   it("renders DataTable", () => {
     setup();
-    expect(screen.getByTestId(/data-table/i)).toBeInTheDocument();
+    expect(screen.getByTestId("data-table")).toBeInTheDocument();
   });
 });
