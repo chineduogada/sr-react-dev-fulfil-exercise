@@ -2,8 +2,12 @@ import { render, screen } from "../utils/test-utils";
 import HomePage from "pages/index";
 
 describe("HomePage", () => {
-  test("renders `Hello`", () => {
+  test("renders page heading", () => {
     render(<HomePage />);
-    expect(screen.getByText(/hello/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: /Sr. React Developer - Fulfil Recruiting Exercise/i,
+      })
+    ).toBeInTheDocument();
   });
 });
