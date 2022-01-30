@@ -41,11 +41,18 @@ const HomePage: NextPage = () => {
             id: "1",
             product: "Product 1",
             price: "Price 1",
+            image: "https://via.placeholder.com/100",
           },
           {
             id: "2",
+            product: "Product 2",
+            price: "Price 2",
+            image: null,
+          },
+          {
+            id: "3",
             product: "Product 1",
-            price: "Price 1",
+            price: "Price 3",
           },
         ]}
       />

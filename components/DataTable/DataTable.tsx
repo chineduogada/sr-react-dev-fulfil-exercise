@@ -1,6 +1,7 @@
 import { Box, Checkbox, Flex, Grid, Icon, Text } from "@chakra-ui/react";
 import Button from "components/Button/Button";
 import Input from "components/Form/Input";
+import Image from "components/Image/Image";
 import React from "react";
 import { BsCaretDownFill } from "react-icons/bs";
 import { layoutStyles } from "theme/components";
@@ -15,6 +16,7 @@ interface DataTableProps {
   }>;
   rows: Array<{
     id: string | number;
+    image?: string | null;
     [x: string]: any;
   }>;
 }
@@ -107,6 +109,18 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
                 <Box p={"3px"}>
                   <Checkbox />
                 </Box>
+
+                {row.image !== undefined &&
+                  (row.image === null ? (
+                    <Box data-testid="data-table-row-no-image"></Box>
+                  ) : (
+                    <Image
+                      src={row.image as string}
+                      alt={row.product as string}
+                      w="40px"
+                      h="40px"
+                    />
+                  ))}
               </Flex>
 
               {columns?.map(({ id }) => (

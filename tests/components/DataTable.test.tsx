@@ -55,23 +55,33 @@ describe("DataTable Component", () => {
     );
   });
 
-  test("renders rows", () => {
+  test("renders rows and verify images", () => {
     const props = {
       rows: [
         {
           id: "1",
+          image: "https://via.placeholder.com/100",
           product: "Product 1",
           price: "Price 1",
         },
         {
           id: "2",
-          product: "Product 1",
-          price: "Price 1",
+          image: null,
+          product: "Product 2",
+          price: "Price 2",
+        },
+        {
+          id: "2",
+          product: "Product 3",
+          price: "Price 3",
         },
       ],
     };
     setup(props);
 
-    expect(screen.getAllByTestId("data-table-row").length).toBe(2);
+    expect(screen.getAllByTestId("data-table-row").length).toBe(3);
+    expect(screen.getAllByRole("img", { name: /product/i }).length).toBe(1);
+    expect(screen.getByRole("img", { name: "Product 1" })).toBeInTheDocument();
+    expect(screen.getAllByTestId("data-table-row-no-image").length).toBe(1);
   });
 });
