@@ -5,89 +5,8 @@ import Image from "components/Image/Image";
 import React from "react";
 import { BsCaretDownFill, BsCaretUpFill, BsImage } from "react-icons/bs";
 import { layoutStyles } from "theme/components";
-
-type Column = {
-  id: string;
-  label: string;
-  numeric: boolean;
-  width?: string;
-};
-
-type Row = {
-  id: string | number;
-  image?: string | null;
-  [x: string]: any;
-};
-
-type SortBy = {
-  columnId?: string;
-  up?: boolean;
-  down?: boolean;
-};
-
-interface DataTableProps {
-  //   x: string;
-  columns: Array<Column>;
-  rows: Array<Row>;
-}
-
-const handleSortRowsAlphabetically = ({
-  rows,
-  sortBy,
-}: {
-  rows: Array<Row>;
-  sortBy: SortBy;
-}) => {
-  const newRows = [...rows];
-
-  newRows.sort(function (firstElement, secondElement) {
-    let firstValue: string | number = +firstElement[sortBy.columnId as string];
-    let secondValue: string | number =
-      +secondElement[sortBy.columnId as string];
-
-    if (
-      !firstValue &&
-      firstValue !== 0 &&
-      //   firstValue !== false &&
-      //   firstValue !== "" &&
-      firstValue !== undefined &&
-      firstValue !== null
-    ) {
-      firstValue = firstElement[sortBy.columnId as string];
-      secondValue = secondElement[sortBy.columnId as string];
-    }
-
-    if (typeof firstValue === "string") {
-      firstValue = `${firstValue}`.toUpperCase().trim(); // ignore upper and lowercase
-      secondValue = `${secondValue}`.toUpperCase().trim(); // ignore upper and lowercase
-
-      if (sortBy.up) {
-        if (firstValue < secondValue) {
-          return -1;
-        }
-        if (firstValue > secondValue) {
-          return 1;
-        }
-      } else {
-        if (firstValue > secondValue) {
-          return -1;
-        }
-        if (firstValue < secondValue) {
-          return 1;
-        }
-      }
-      return 0;
-    }
-
-    if (typeof firstValue === "number") {
-      return sortBy.up ? firstValue - +secondValue : +secondValue - firstValue;
-    }
-
-    return 0;
-  });
-
-  return newRows;
-};
+import DataTableProps, { Column, Row, SortRowsByState } from "./interfaces";
+import TableHead from "./TableHead";
 
 const DataTable: React.FC<DataTableProps> = ({
   columns,
@@ -100,56 +19,16 @@ const DataTable: React.FC<DataTableProps> = ({
     rows?.[0].image !== undefined ? "100px " : "50px "
   );
 
-  const [sortBy, setSortBy] = React.useState<SortBy>({});
-
-  const handleColumnClick = (column: Column) => {
-    if (column.id !== sortBy.columnId)
-      return setSortBy({
-        columnId: column.id,
-        up: true,
-        down: false,
-      });
-
-    setSortBy((prevState) => ({
-      columnId:
-        prevState.down && prevState.columnId === column.id
-          ? undefined
-          : column.id,
-      up: prevState.columnId && prevState.up ? false : true,
-      down: prevState.columnId && prevState.up ? true : false,
-    }));
-  };
-
-  const renderColumnSortIcon = (currentColumn: Column) => {
-    if (currentColumn.id === sortBy.columnId) {
-      return (
-        (sortBy.up || sortBy.down) && (
-          <Icon
-            transform="translate(5px, 2px)"
-            data-testid={
-              sortBy.up
-                ? `data-table-column-sort-up`
-                : sortBy.down
-                ? `data-table-column-sort-down`
-                : undefined
-            }
-          >
-            {sortBy.up && <BsCaretUpFill />}
-            {sortBy.down && <BsCaretDownFill />}
-          </Icon>
-        )
-      );
-    }
-  };
+  const [sortRowsBy, setSortRowsBy] = React.useState<SortRowsByState>({});
 
   React.useEffect(() => {
-    if (!sortBy.columnId) return setRows(originalRows);
+    if (!sortRowsBy.columnId) return setRows(originalRows);
 
-    const newRows = handleSortRowsAlphabetically({ rows, sortBy });
+    const newRows = handleSortRowsAlphabetically({ rows, sortRowsBy });
     setRows(newRows);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sortBy.columnId, sortBy.up, sortBy.down]);
+  }, [sortRowsBy.columnId, sortRowsBy.up, sortRowsBy.down]);
 
   return (
     <Box
@@ -182,69 +61,13 @@ const DataTable: React.FC<DataTableProps> = ({
         </Flex>
 
         <Box mt={5}>
-          {/* Head */}
-          <>
-            <Text textAlign={"right"} fontSize="xs" fontStyle="italic" mb={2}>
-              Showing {rows.length} rows
-            </Text>
-
-            <Grid
-              gridTemplateColumns={gridTemplateColumns}
-              gridGap={5}
-              borderBottom={layoutStyles.border}
-              borderColor={layoutStyles.borderColor}
-              h="40px"
-              alignItems={"center"}
-            >
-              <Flex alignItems="center">
-                <Flex
-                  gridGap="1"
-                  p={"3px"}
-                  backgroundColor="accent.2"
-                  w="fit-content"
-                  {...layoutStyles}
-                  alignItems={"center"}
-                >
-                  <Checkbox />
-
-                  <Icon transform="translate(2px, 2px)">
-                    <BsCaretDownFill />
-                  </Icon>
-                </Flex>
-              </Flex>
-
-              {columns?.map((column) => {
-                const { id, label } = column;
-
-                const activeStyles = {
-                  ...layoutStyles,
-                  outline: "none",
-                  backgroundColor: "accent.2",
-                };
-
-                return (
-                  <Flex
-                    as="button"
-                    border="1px"
-                    borderColor="transparent"
-                    alignItems="center"
-                    key={id}
-                    data-testid={`data-table-column`}
-                    onClick={() => handleColumnClick(column)}
-                    _hover={{ ...layoutStyles, backgroundColor: "accent.2" }}
-                    _focus={{ ...activeStyles, opacity: 0.7 }}
-                    {...(column.id === sortBy.columnId && activeStyles)}
-                  >
-                    <Text fontWeight={"bold"} fontSize="xs">
-                      {label}
-                    </Text>
-
-                    {renderColumnSortIcon(column)}
-                  </Flex>
-                );
-              })}
-            </Grid>
-          </>
+          <TableHead
+            gridTemplateColumns={gridTemplateColumns}
+            columns={columns}
+            rows={rows}
+            sortRowsBy={sortRowsBy}
+            setSortRowsBy={setSortRowsBy}
+          />
 
           {/* Body */}
           {rows?.map((row) => (
@@ -299,6 +122,63 @@ const DataTable: React.FC<DataTableProps> = ({
       </Box>
     </Box>
   );
+};
+
+const handleSortRowsAlphabetically = ({
+  rows,
+  sortRowsBy,
+}: {
+  rows: Array<Row>;
+  sortRowsBy: SortRowsByState;
+}) => {
+  const newRows = [...rows];
+
+  newRows.sort(function (a, b) {
+    let firstValue: string | number = +a[sortRowsBy.columnId as string];
+    let secondValue: string | number = +b[sortRowsBy.columnId as string];
+
+    if (
+      !firstValue &&
+      firstValue !== 0 &&
+      firstValue !== undefined &&
+      firstValue !== null
+    ) {
+      firstValue = a[sortRowsBy.columnId as string];
+      secondValue = b[sortRowsBy.columnId as string];
+    }
+
+    if (typeof firstValue === "string") {
+      firstValue = `${firstValue}`.toUpperCase().trim(); // ignore upper and lowercase
+      secondValue = `${secondValue}`.toUpperCase().trim(); // ignore upper and lowercase
+
+      if (sortRowsBy.up) {
+        if (firstValue < secondValue) {
+          return -1;
+        }
+        if (firstValue > secondValue) {
+          return 1;
+        }
+      } else {
+        if (firstValue > secondValue) {
+          return -1;
+        }
+        if (firstValue < secondValue) {
+          return 1;
+        }
+      }
+      return 0;
+    }
+
+    if (typeof firstValue === "number") {
+      return sortRowsBy.up
+        ? firstValue - +secondValue
+        : +secondValue - firstValue;
+    }
+
+    return 0;
+  });
+
+  return newRows;
 };
 
 export default DataTable;
