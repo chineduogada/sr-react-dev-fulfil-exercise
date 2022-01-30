@@ -1,9 +1,6 @@
-import { Box, Checkbox, Flex, Grid, Icon, Text } from "@chakra-ui/react";
-import Button from "components/Button/Button";
-import Input from "components/Form/Input";
-import Image from "components/Image/Image";
+import { Checkbox, Flex, Grid, Icon, Text } from "@chakra-ui/react";
 import React from "react";
-import { BsCaretDownFill, BsCaretUpFill, BsImage } from "react-icons/bs";
+import { BsCaretDownFill, BsCaretUpFill } from "react-icons/bs";
 import { TiArrowUnsorted } from "react-icons/ti";
 import { layoutStyles } from "theme/components";
 import { Column, SortRowsByState, TableHeadProps } from "./interfaces";
@@ -75,6 +72,7 @@ const TableHead: React.FC<TableHeadProps> = ({
         borderColor={layoutStyles.borderColor}
         h="40px"
         alignItems={"center"}
+        data-testid="data-table-head"
       >
         <Flex alignItems="center">
           <Flex

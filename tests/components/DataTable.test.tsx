@@ -224,5 +224,33 @@ describe("DataTable Component", () => {
         "text-align: right"
       );
     });
+
+    it("Should be able to set column width and if not set width should auto adjust itself", () => {
+      const props = {
+        columns: [
+          {
+            id: "product",
+            label: "Product",
+          },
+          {
+            id: "price",
+            label: "Price",
+            width: "10px",
+          },
+          {
+            id: "vendor",
+            label: "Vendor",
+          },
+        ],
+      };
+      setup(props);
+
+      expect(screen.getByTestId("data-table-row")).toHaveStyle(
+        "grid-template-columns: 50px 1fr 10px 1fr"
+      );
+      expect(screen.getByTestId("data-table-head")).toHaveStyle(
+        "grid-template-columns: 50px 1fr 10px 1fr"
+      );
+    });
   });
 });

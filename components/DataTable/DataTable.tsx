@@ -1,11 +1,11 @@
-import { Box, Checkbox, Flex, Grid, Icon, Text } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import Button from "components/Button/Button";
 import Input from "components/Form/Input";
-import Image from "components/Image/Image";
 import React from "react";
-import { BsCaretDownFill, BsCaretUpFill, BsImage } from "react-icons/bs";
+import { BsCaretDownFill } from "react-icons/bs";
 import { layoutStyles } from "theme/components";
-import DataTableProps, { Column, Row, SortRowsByState } from "./interfaces";
+import { handleSortRowsAlphabetically } from "./helpers";
+import DataTableProps, { Row, SortRowsByState } from "./interfaces";
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 
@@ -16,7 +16,7 @@ const DataTable: React.FC<DataTableProps> = ({
   const [rows, setRows] = React.useState<Array<Row>>(originalRows);
 
   const gridTemplateColumns = columns?.reduce(
-    (acc, col) => acc + "1fr ",
+    (acc, col) => acc + (col.width ? `${col.width} ` : "1fr "),
     rows?.[0].image !== undefined ? "100px " : "50px "
   );
 
@@ -24,7 +24,6 @@ const DataTable: React.FC<DataTableProps> = ({
 
   React.useEffect(() => {
     if (!sortRowsBy.columnId) return setRows(originalRows);
-
     const newRows = handleSortRowsAlphabetically({ rows, sortRowsBy });
     setRows(newRows);
 
@@ -81,63 +80,6 @@ const DataTable: React.FC<DataTableProps> = ({
       </Box>
     </Box>
   );
-};
-
-const handleSortRowsAlphabetically = ({
-  rows,
-  sortRowsBy,
-}: {
-  rows: Array<Row>;
-  sortRowsBy: SortRowsByState;
-}) => {
-  const newRows = [...rows];
-
-  newRows.sort(function (a, b) {
-    let firstValue: string | number = +a[sortRowsBy.columnId as string];
-    let secondValue: string | number = +b[sortRowsBy.columnId as string];
-
-    if (
-      !firstValue &&
-      firstValue !== 0 &&
-      firstValue !== undefined &&
-      firstValue !== null
-    ) {
-      firstValue = a[sortRowsBy.columnId as string];
-      secondValue = b[sortRowsBy.columnId as string];
-    }
-
-    if (typeof firstValue === "string") {
-      firstValue = `${firstValue}`.toUpperCase().trim(); // ignore upper and lowercase
-      secondValue = `${secondValue}`.toUpperCase().trim(); // ignore upper and lowercase
-
-      if (sortRowsBy.up) {
-        if (firstValue < secondValue) {
-          return -1;
-        }
-        if (firstValue > secondValue) {
-          return 1;
-        }
-      } else {
-        if (firstValue > secondValue) {
-          return -1;
-        }
-        if (firstValue < secondValue) {
-          return 1;
-        }
-      }
-      return 0;
-    }
-
-    if (typeof firstValue === "number") {
-      return sortRowsBy.up
-        ? firstValue - +secondValue
-        : +secondValue - firstValue;
-    }
-
-    return 0;
-  });
-
-  return newRows;
 };
 
 export default DataTable;
