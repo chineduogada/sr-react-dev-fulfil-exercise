@@ -97,6 +97,7 @@ const DataTable: React.FC<DataTableProps> = ({
             sortRowsBy={sortRowsBy}
             setSortRowsBy={setSortRowsBy}
             onSelectAllRows={handleSelectAllRows}
+            selectedRowsCount={selectedRows.length}
           />
 
           {/* Body */}

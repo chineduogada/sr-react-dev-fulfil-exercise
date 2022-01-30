@@ -12,6 +12,7 @@ export interface TableHeadProps {
   sortRowsBy: SortRowsByState;
   setSortRowsBy: any;
   onSelectAllRows: () => void;
+  selectedRowsCount: number;
 }
 
 export interface TableBodyProps {

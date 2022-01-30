@@ -11,6 +11,7 @@ const TableHead: React.FC<TableHeadProps> = ({
   columns,
   sortRowsBy,
   setSortRowsBy,
+  selectedRowsCount,
   onSelectAllRows,
 }) => {
   const handleColumnClick = (column: Column) => {
@@ -87,7 +88,14 @@ const TableHead: React.FC<TableHeadProps> = ({
             <Checkbox
               data-testid="data-table-checkbox"
               onChange={onSelectAllRows}
+              isChecked={selectedRowsCount === rows.length}
             />
+
+            {selectedRowsCount ? (
+              <Text as="span" fontSize="xs" fontWeight="bold">
+                {selectedRowsCount}
+              </Text>
+            ) : null}
 
             <Icon transform="translate(2px, 2px)">
               <BsCaretDownFill />
