@@ -3,8 +3,7 @@ import Button from "components/Button/Button";
 import Input from "components/Form/Input";
 import Image from "components/Image/Image";
 import React from "react";
-import { BsCaretDownFill } from "react-icons/bs";
-import { GrImage } from "react-icons/gr";
+import { BsCaretDownFill, BsImage } from "react-icons/bs";
 import { layoutStyles } from "theme/components";
 
 interface DataTableProps {
@@ -116,7 +115,7 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
                       boxSize="50px"
                       fontSize="50px"
                     >
-                      <GrImage />
+                      <BsImage />
                     </Box>
                   ) : (
                     <Image
