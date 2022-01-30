@@ -13,19 +13,26 @@ interface DataTableProps {
     numeric: boolean;
     width?: string;
   }>;
+  rows: Array<{
+    id: string | number;
+    [x: string]: any;
+  }>;
 }
 
-const DataTable: React.FC<DataTableProps> = ({ columns }) => {
+const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
   const gridTemplateColumns = columns?.reduce(
     (acc, col) => acc + "1fr ",
     "100px "
   );
 
-  console.log(gridTemplateColumns);
-  console.log(columns.length);
-
   return (
-    <Box as="section" data-testId="data-table" {...layoutStyles} py={5}>
+    <Box
+      as="section"
+      data-testid="data-table"
+      {...layoutStyles}
+      py={5}
+      shadow="0 0 2px rgba(0, 0, 0, .1)"
+    >
       <Flex
         mb={5}
         borderBottom={layoutStyles.border}
@@ -55,10 +62,10 @@ const DataTable: React.FC<DataTableProps> = ({ columns }) => {
             gridGap={5}
             borderBottom={layoutStyles.border}
             borderColor={layoutStyles.borderColor}
-            h="60px"
+            h="40px"
             alignItems={"center"}
           >
-            <Box>
+            <Flex alignItems="center">
               <Flex
                 gridGap="1"
                 p={"3px"}
@@ -73,7 +80,7 @@ const DataTable: React.FC<DataTableProps> = ({ columns }) => {
                   <BsCaretDownFill />
                 </Icon>
               </Flex>
-            </Box>
+            </Flex>
 
             {columns?.map(({ id, label }) => (
               <Box key={id} data-testid={`data-table-column`}>
@@ -83,6 +90,35 @@ const DataTable: React.FC<DataTableProps> = ({ columns }) => {
               </Box>
             ))}
           </Grid>
+
+          {/* Body */}
+          {rows?.map((row) => (
+            <Grid
+              key={row.id}
+              data-testid={`data-table-row`}
+              gridTemplateColumns={gridTemplateColumns}
+              gridGap={5}
+              borderBottom={layoutStyles.border}
+              borderColor={layoutStyles.borderColor}
+              h="60px"
+              alignItems={"center"}
+            >
+              <Flex alignItems="center">
+                <Box p={"3px"}>
+                  <Checkbox />
+                </Box>
+              </Flex>
+
+              {columns?.map(({ id }) => (
+                <Box
+                  key={`${row.id}--${id}`}
+                  data-testid={`data-table-row-cell`}
+                >
+                  <Text fontSize="xs">{row[id]}</Text>
+                </Box>
+              ))}
+            </Grid>
+          ))}
         </Box>
       </Box>
     </Box>

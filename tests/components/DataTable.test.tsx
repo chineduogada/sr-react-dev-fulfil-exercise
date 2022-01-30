@@ -1,12 +1,21 @@
 import DataTable from "components/DataTable/DataTable";
+import { debug } from "console";
 import { render, screen } from "../utils/test-utils";
 
-const setup = (
-  props = {
-    columns: [{ id: "1", label: "Name", numeric: false, width: "100px" }],
-  }
-) => {
-  render(<DataTable {...props} />);
+const setup = (props = {}) => {
+  render(
+    <DataTable
+      {...{
+        columns: [{ id: "1", label: "Name", numeric: false, width: "100px" }],
+        rows: [
+          {
+            id: 1,
+          },
+        ],
+        ...props,
+      }}
+    />
+  );
 };
 
 describe("DataTable Component", () => {
@@ -35,9 +44,34 @@ describe("DataTable Component", () => {
         },
       ],
     };
-
     setup(props);
 
-    expect(screen.getAllByTestId(/data-table-column/i).length).toBe(2);
+    expect(screen.getAllByTestId("data-table-column").length).toBe(2);
+    expect(screen.getAllByTestId("data-table-column")[0]).toHaveTextContent(
+      "Product"
+    );
+    expect(screen.getAllByTestId("data-table-column")[1]).toHaveTextContent(
+      "Price"
+    );
+  });
+
+  test("renders rows", () => {
+    const props = {
+      rows: [
+        {
+          id: "1",
+          product: "Product 1",
+          price: "Price 1",
+        },
+        {
+          id: "2",
+          product: "Product 1",
+          price: "Price 1",
+        },
+      ],
+    };
+    setup(props);
+
+    expect(screen.getAllByTestId("data-table-row").length).toBe(2);
   });
 });

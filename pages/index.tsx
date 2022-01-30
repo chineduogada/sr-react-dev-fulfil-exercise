@@ -5,7 +5,7 @@ import DataTable from "components/DataTable/DataTable";
 const HomePage: NextPage = () => {
   return (
     <Box maxLength="700px" mx="auto" p={10}>
-      <Heading as="h1">
+      <Heading as="h1" mb={10}>
         Sr. React Developer - Fulfil Recruiting Exercise
       </Heading>
 
@@ -34,6 +34,18 @@ const HomePage: NextPage = () => {
             label: "Vendors",
             numeric: true, // Right Align
             width: "10px",
+          },
+        ]}
+        rows={[
+          {
+            id: "1",
+            product: "Product 1",
+            price: "Price 1",
+          },
+          {
+            id: "2",
+            product: "Product 1",
+            price: "Price 1",
           },
         ]}
       />
