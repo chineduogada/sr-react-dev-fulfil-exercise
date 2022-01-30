@@ -13,27 +13,94 @@ type Column = {
   width?: string;
 };
 
+type Row = {
+  id: string | number;
+  image?: string | null;
+  [x: string]: any;
+};
+
+type SortBy = {
+  columnId?: string;
+  up?: boolean;
+  down?: boolean;
+};
+
 interface DataTableProps {
   //   x: string;
   columns: Array<Column>;
-  rows: Array<{
-    id: string | number;
-    image?: string | null;
-    [x: string]: any;
-  }>;
+  rows: Array<Row>;
 }
 
-const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
+const handleSortRowsAlphabetically = ({
+  rows,
+  sortBy,
+}: {
+  rows: Array<Row>;
+  sortBy: SortBy;
+}) => {
+  const newRows = [...rows];
+
+  newRows.sort(function (firstElement, secondElement) {
+    let firstValue: string | number = +firstElement[sortBy.columnId as string];
+    let secondValue: string | number =
+      +secondElement[sortBy.columnId as string];
+
+    if (
+      !firstValue &&
+      firstValue !== 0 &&
+      //   firstValue !== false &&
+      //   firstValue !== "" &&
+      firstValue !== undefined &&
+      firstValue !== null
+    ) {
+      firstValue = firstElement[sortBy.columnId as string];
+      secondValue = secondElement[sortBy.columnId as string];
+    }
+
+    if (typeof firstValue === "string") {
+      firstValue = `${firstValue}`.toUpperCase().trim(); // ignore upper and lowercase
+      secondValue = `${secondValue}`.toUpperCase().trim(); // ignore upper and lowercase
+
+      if (sortBy.up) {
+        if (firstValue < secondValue) {
+          return -1;
+        }
+        if (firstValue > secondValue) {
+          return 1;
+        }
+      } else {
+        if (firstValue > secondValue) {
+          return -1;
+        }
+        if (firstValue < secondValue) {
+          return 1;
+        }
+      }
+      return 0;
+    }
+
+    if (typeof firstValue === "number") {
+      return sortBy.up ? firstValue - +secondValue : +secondValue - firstValue;
+    }
+
+    return 0;
+  });
+
+  return newRows;
+};
+
+const DataTable: React.FC<DataTableProps> = ({
+  columns,
+  rows: originalRows,
+}) => {
+  const [rows, setRows] = React.useState<Array<Row>>(originalRows);
+
   const gridTemplateColumns = columns?.reduce(
     (acc, col) => acc + "1fr ",
     rows?.[0].image !== undefined ? "100px " : "50px "
   );
 
-  const [sortBy, setSortBy] = React.useState<{
-    columnId?: string;
-    up?: boolean;
-    down?: boolean;
-  }>({});
+  const [sortBy, setSortBy] = React.useState<SortBy>({});
 
   const handleColumnClick = (column: Column) => {
     if (column.id !== sortBy.columnId)
@@ -74,6 +141,15 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
       );
     }
   };
+
+  React.useEffect(() => {
+    if (!sortBy.columnId) return setRows(originalRows);
+
+    const newRows = handleSortRowsAlphabetically({ rows, sortBy });
+    setRows(newRows);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortBy.columnId, sortBy.up, sortBy.down]);
 
   return (
     <Box
