@@ -29,9 +29,9 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
 
   return (
     <Box
+      {...layoutStyles}
       as="section"
       data-testid="data-table"
-      {...layoutStyles}
       py={5}
       shadow="0 0 2px rgba(0, 0, 0, .1)"
     >
@@ -71,7 +71,7 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
               <Flex
                 gridGap="1"
                 p={"3px"}
-                bg="accent.2"
+                backgroundColor="accent.2"
                 w="fit-content"
                 {...layoutStyles}
                 alignItems={"center"}
@@ -110,13 +110,18 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
 
                 {row.image !== undefined &&
                   (row.image === null ? (
-                    <Box
+                    <Flex
+                      alignItems="center"
+                      justifyContent="center"
+                      {...layoutStyles}
                       data-testid="data-table-row-no-image"
                       boxSize="50px"
-                      fontSize="50px"
+                      fontSize="30px"
+                      color="gray.500"
+                      backgroundColor="accent.2"
                     >
                       <BsImage />
-                    </Box>
+                    </Flex>
                   ) : (
                     <Image
                       src={row.image as string}
