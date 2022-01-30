@@ -61,6 +61,7 @@ const DataTable: React.FC<DataTableProps> = ({
         </Flex>
 
         <Box mt={5}>
+          {/* Head */}
           <TableHead
             gridTemplateColumns={gridTemplateColumns}
             columns={columns}

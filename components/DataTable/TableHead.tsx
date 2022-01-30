@@ -4,6 +4,7 @@ import Input from "components/Form/Input";
 import Image from "components/Image/Image";
 import React from "react";
 import { BsCaretDownFill, BsCaretUpFill, BsImage } from "react-icons/bs";
+import { TiArrowUnsorted } from "react-icons/ti";
 import { layoutStyles } from "theme/components";
 import DataTableProps, {
   Column,
@@ -57,6 +58,13 @@ const TableHead: React.FC<TableHeadProps> = ({
         )
       );
     }
+
+    if (currentColumn.id !== sortRowsBy.columnId)
+      return (
+        <Icon transform="translate(5px, 2px)" opacity={0.5}>
+          <TiArrowUnsorted />
+        </Icon>
+      );
   };
 
   return (
