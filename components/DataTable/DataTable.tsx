@@ -133,7 +133,7 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
                   key={`${row.id}--${id}`}
                   data-testid={`data-table-row-cell`}
                 >
-                  <Text fontSize="xs">{row[id]}</Text>
+                  <Text fontSize="xs">{row[id] || "null"}</Text>
                 </Box>
               ))}
             </Grid>

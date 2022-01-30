@@ -1,5 +1,4 @@
 import DataTable from "components/DataTable/DataTable";
-import { debug } from "console";
 import { render, screen } from "../utils/test-utils";
 
 const setup = (props = {}) => {
@@ -80,6 +79,7 @@ describe("DataTable Component", () => {
     setup(props);
 
     expect(screen.getAllByTestId("data-table-row").length).toBe(3);
+    expect(screen.getAllByTestId("data-table-row-cell").length).toBe(3);
     expect(screen.getAllByRole("img", { name: /product/i }).length).toBe(1);
     expect(screen.getByRole("img", { name: "Product 1" })).toBeInTheDocument();
     expect(screen.getAllByTestId("data-table-row-no-image").length).toBe(1);
