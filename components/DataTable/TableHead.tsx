@@ -70,7 +70,7 @@ const TableHead: React.FC<TableHeadProps> = ({
   return (
     <>
       <Text textAlign={"right"} fontSize="xs" fontStyle="italic" mb={2}>
-        Showing {rows.length} rows
+        Showing <b>{rows.length}</b> rows
       </Text>
 
       <Grid
