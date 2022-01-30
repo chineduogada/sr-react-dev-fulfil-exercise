@@ -217,6 +217,9 @@ describe("DataTable Component", () => {
       };
       setup(props);
 
+      expect(screen.getAllByTestId("data-table-row-cell")[0]).toHaveStyle(
+        "text-align: left"
+      );
       expect(screen.getAllByTestId("data-table-row-cell")[1]).toHaveStyle(
         "text-align: right"
       );

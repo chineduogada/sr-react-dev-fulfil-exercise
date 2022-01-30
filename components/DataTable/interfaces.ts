@@ -12,6 +12,12 @@ export interface TableHeadProps {
   setSortRowsBy: any;
 }
 
+export interface TableBodyProps {
+  gridTemplateColumns: string;
+  rows: Row[];
+  columns: Column[];
+}
+
 // Other Types
 export type Column = {
   id: string;

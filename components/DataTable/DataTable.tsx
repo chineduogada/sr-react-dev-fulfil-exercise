@@ -6,6 +6,7 @@ import React from "react";
 import { BsCaretDownFill, BsCaretUpFill, BsImage } from "react-icons/bs";
 import { layoutStyles } from "theme/components";
 import DataTableProps, { Column, Row, SortRowsByState } from "./interfaces";
+import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 
 const DataTable: React.FC<DataTableProps> = ({
@@ -71,55 +72,11 @@ const DataTable: React.FC<DataTableProps> = ({
           />
 
           {/* Body */}
-          {rows?.map((row) => (
-            <Grid
-              key={row.id}
-              data-testid={`data-table-row`}
-              gridTemplateColumns={gridTemplateColumns}
-              gridGap={5}
-              borderBottom={layoutStyles.border}
-              borderColor={layoutStyles.borderColor}
-              h="60px"
-              alignItems={"center"}
-            >
-              <Flex alignItems="center" justifyContent={"space-between"}>
-                <Checkbox p={"3px"} />
-
-                {row.image !== undefined &&
-                  (row.image === null ? (
-                    <Flex
-                      alignItems="center"
-                      justifyContent="center"
-                      {...layoutStyles}
-                      data-testid="data-table-row-no-image"
-                      boxSize="50px"
-                      fontSize="30px"
-                      color="gray.500"
-                      backgroundColor="accent.2"
-                    >
-                      <BsImage />
-                    </Flex>
-                  ) : (
-                    <Image
-                      src={row.image as string}
-                      alt={row.product as string}
-                      w="50px"
-                      h="50px"
-                    />
-                  ))}
-              </Flex>
-
-              {columns?.map(({ id, numeric }) => (
-                <Box
-                  key={`${row.id}--${id}`}
-                  data-testid={`data-table-row-cell`}
-                  textAlign={numeric ? "right" : "left"}
-                >
-                  <Text fontSize="xs">{row[id] || "null"}</Text>
-                </Box>
-              ))}
-            </Grid>
-          ))}
+          <TableBody
+            gridTemplateColumns={gridTemplateColumns}
+            columns={columns}
+            rows={rows}
+          />
         </Box>
       </Box>
     </Box>

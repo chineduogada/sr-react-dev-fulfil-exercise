@@ -6,12 +6,7 @@ import React from "react";
 import { BsCaretDownFill, BsCaretUpFill, BsImage } from "react-icons/bs";
 import { TiArrowUnsorted } from "react-icons/ti";
 import { layoutStyles } from "theme/components";
-import DataTableProps, {
-  Column,
-  Row,
-  SortRowsByState,
-  TableHeadProps,
-} from "./interfaces";
+import { Column, SortRowsByState, TableHeadProps } from "./interfaces";
 
 const TableHead: React.FC<TableHeadProps> = ({
   gridTemplateColumns,
