@@ -4,6 +4,7 @@ import Input from "components/Form/Input";
 import Image from "components/Image/Image";
 import React from "react";
 import { BsCaretDownFill } from "react-icons/bs";
+import { GrImage } from "react-icons/gr";
 import { layoutStyles } from "theme/components";
 
 interface DataTableProps {
@@ -105,20 +106,24 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
               h="60px"
               alignItems={"center"}
             >
-              <Flex alignItems="center">
-                <Box p={"3px"}>
-                  <Checkbox />
-                </Box>
+              <Flex alignItems="center" justifyContent={"space-between"}>
+                <Checkbox p={"3px"} />
 
                 {row.image !== undefined &&
                   (row.image === null ? (
-                    <Box data-testid="data-table-row-no-image"></Box>
+                    <Box
+                      data-testid="data-table-row-no-image"
+                      boxSize="50px"
+                      fontSize="50px"
+                    >
+                      <GrImage />
+                    </Box>
                   ) : (
                     <Image
                       src={row.image as string}
                       alt={row.product as string}
-                      w="40px"
-                      h="40px"
+                      w="50px"
+                      h="50px"
                     />
                   ))}
               </Flex>
