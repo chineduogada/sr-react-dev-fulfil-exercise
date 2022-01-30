@@ -59,39 +59,45 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
 
         <Box mt={5}>
           {/* Head */}
-          <Grid
-            gridTemplateColumns={gridTemplateColumns}
-            gridGap={5}
-            borderBottom={layoutStyles.border}
-            borderColor={layoutStyles.borderColor}
-            h="40px"
-            alignItems={"center"}
-          >
-            <Flex alignItems="center">
-              <Flex
-                gridGap="1"
-                p={"3px"}
-                backgroundColor="accent.2"
-                w="fit-content"
-                {...layoutStyles}
-                alignItems={"center"}
-              >
-                <Checkbox />
+          <>
+            <Text textAlign={"right"} fontSize="xs" fontStyle="italic" mb={2}>
+              Showing {rows.length} rows
+            </Text>
 
-                <Icon transform="translate(2px, 2px)">
-                  <BsCaretDownFill />
-                </Icon>
+            <Grid
+              gridTemplateColumns={gridTemplateColumns}
+              gridGap={5}
+              borderBottom={layoutStyles.border}
+              borderColor={layoutStyles.borderColor}
+              h="40px"
+              alignItems={"center"}
+            >
+              <Flex alignItems="center">
+                <Flex
+                  gridGap="1"
+                  p={"3px"}
+                  backgroundColor="accent.2"
+                  w="fit-content"
+                  {...layoutStyles}
+                  alignItems={"center"}
+                >
+                  <Checkbox />
+
+                  <Icon transform="translate(2px, 2px)">
+                    <BsCaretDownFill />
+                  </Icon>
+                </Flex>
               </Flex>
-            </Flex>
 
-            {columns?.map(({ id, label }) => (
-              <Box key={id} data-testid={`data-table-column`}>
-                <Text fontWeight={"bold"} fontSize="xs">
-                  {label}
-                </Text>
-              </Box>
-            ))}
-          </Grid>
+              {columns?.map(({ id, label }) => (
+                <Box key={id} data-testid={`data-table-column`}>
+                  <Text fontWeight={"bold"} fontSize="xs">
+                    {label}
+                  </Text>
+                </Box>
+              ))}
+            </Grid>
+          </>
 
           {/* Body */}
           {rows?.map((row) => (
