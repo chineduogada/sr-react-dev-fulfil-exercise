@@ -6,14 +6,16 @@ import React from "react";
 import { BsCaretDownFill, BsCaretUpFill, BsImage } from "react-icons/bs";
 import { layoutStyles } from "theme/components";
 
+type Column = {
+  id: string;
+  label: string;
+  numeric: boolean;
+  width?: string;
+};
+
 interface DataTableProps {
   //   x: string;
-  columns: Array<{
-    id: string;
-    label: string;
-    numeric: boolean;
-    width?: string;
-  }>;
+  columns: Array<Column>;
   rows: Array<{
     id: string | number;
     image?: string | null;
@@ -26,6 +28,34 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
     (acc, col) => acc + "1fr ",
     rows?.[0].image !== undefined ? "100px " : "50px "
   );
+
+  const [sortBy, setSortBy] = React.useState<{
+    columnId?: string;
+    up?: string;
+    down?: string;
+  }>({});
+
+  const renderColumnSortIcon = (currentColumn: Column) => {
+    if (currentColumn.id === sortBy.columnId) {
+      return (
+        (sortBy.up || sortBy.down) && (
+          <Icon
+            transform="translate(5px, 2px)"
+            data-testid={
+              sortBy.up
+                ? `data-table-column-sort-up`
+                : sortBy.down
+                ? `data-table-column-sort-down`
+                : undefined
+            }
+          >
+            {sortBy.up && <BsCaretUpFill />}
+            {sortBy.down && <BsCaretDownFill />}
+          </Icon>
+        )
+      );
+    }
+  };
 
   return (
     <Box
@@ -89,30 +119,23 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
                 </Flex>
               </Flex>
 
-              {columns?.map(({ id, label }) => (
-                <Flex
-                  alignItems="center"
-                  key={id}
-                  data-testid={`data-table-column`}
-                >
-                  <Text fontWeight={"bold"} fontSize="xs">
-                    {label}
-                  </Text>
+              {columns?.map((column) => {
+                const { id, label } = column;
 
-                  <Icon
-                    transform="translate(5px, 2px)"
-                    data-testid="data-table-column-sort-up"
+                return (
+                  <Flex
+                    alignItems="center"
+                    key={id}
+                    data-testid={`data-table-column`}
                   >
-                    <BsCaretUpFill />
-                  </Icon>
-                  <Icon
-                    transform="translate(5px, 2px)"
-                    data-testid="data-table-column-sort-down"
-                  >
-                    <BsCaretDownFill />
-                  </Icon>
-                </Flex>
-              ))}
+                    <Text fontWeight={"bold"} fontSize="xs">
+                      {label}
+                    </Text>
+
+                    {renderColumnSortIcon(column)}
+                  </Flex>
+                );
+              })}
             </Grid>
           </>
 
