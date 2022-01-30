@@ -101,7 +101,11 @@ describe("DataTable Component", () => {
       expect(screen.getAllByTestId("data-table-row-cell").length).toBe(
         props.columns.length * props.rows.length
       );
-      expect(screen.getByText(/showing 3 rows/i)).toBeInTheDocument();
+
+      screen.debug();
+
+      expect(screen.getByText(/showing/i)).toBeInTheDocument();
+      expect(screen.getByText(/rows/i)).toBeInTheDocument();
       expect(screen.getAllByRole("img", { name: /product/i }).length).toBe(1);
       expect(
         screen.getByRole("img", { name: "Product 1" })
