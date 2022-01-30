@@ -1,5 +1,5 @@
 import DataTable from "components/DataTable/DataTable";
-import { render, screen } from "../utils/test-utils";
+import { render, screen, user } from "../utils/test-utils";
 
 const setup = (props = {}) => {
   render(
@@ -152,9 +152,44 @@ describe("DataTable Component", () => {
         screen.queryAllByTestId("data-table-column-sort-down").length
       ).toBe(0);
 
+      const clickOnColumnCell = ({
+        shouldShowUpSortIcon,
+        shouldShowNoSortIcons,
+        cell,
+      }: {
+        shouldShowUpSortIcon?: boolean;
+        shouldShowNoSortIcons?: boolean;
+        cell: HTMLElement;
+      }) => {
+        user.click(productColumnElement);
+        expect(
+          screen.queryAllByTestId("data-table-column-sort-up").length
+        ).toBe(shouldShowNoSortIcons ? 0 : shouldShowUpSortIcon ? 1 : 0);
+        expect(
+          screen.queryAllByTestId("data-table-column-sort-down").length
+        ).toBe(shouldShowNoSortIcons ? 0 : shouldShowUpSortIcon ? 0 : 1);
+      };
+
       const productColumnElement =
         screen.getAllByTestId("data-table-column")[0];
       const priceColumnElement = screen.getAllByTestId("data-table-column")[1];
+
+      clickOnColumnCell({
+        cell: productColumnElement,
+        shouldShowUpSortIcon: true,
+      });
+      clickOnColumnCell({
+        cell: productColumnElement,
+        shouldShowUpSortIcon: false,
+      });
+      clickOnColumnCell({
+        cell: productColumnElement,
+        shouldShowNoSortIcons: true,
+      });
+      clickOnColumnCell({
+        cell: priceColumnElement,
+        shouldShowUpSortIcon: true,
+      });
     });
   });
 

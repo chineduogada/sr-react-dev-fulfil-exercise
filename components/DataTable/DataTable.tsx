@@ -31,9 +31,27 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
 
   const [sortBy, setSortBy] = React.useState<{
     columnId?: string;
-    up?: string;
-    down?: string;
+    up?: boolean;
+    down?: boolean;
   }>({});
+
+  const handleColumnClick = (column: Column) => {
+    if (column.id !== sortBy.columnId)
+      return setSortBy({
+        columnId: column.id,
+        up: true,
+        down: false,
+      });
+
+    setSortBy((prevState) => ({
+      columnId:
+        prevState.down && prevState.columnId === column.id
+          ? undefined
+          : column.id,
+      up: prevState.columnId && prevState.up ? false : true,
+      down: prevState.columnId && prevState.up ? true : false,
+    }));
+  };
 
   const renderColumnSortIcon = (currentColumn: Column) => {
     if (currentColumn.id === sortBy.columnId) {
@@ -122,11 +140,24 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
               {columns?.map((column) => {
                 const { id, label } = column;
 
+                const activeStyles = {
+                  ...layoutStyles,
+                  outline: "none",
+                  backgroundColor: "accent.2",
+                };
+
                 return (
                   <Flex
+                    as="button"
+                    border="1px"
+                    borderColor="transparent"
                     alignItems="center"
                     key={id}
                     data-testid={`data-table-column`}
+                    onClick={() => handleColumnClick(column)}
+                    _hover={{ ...layoutStyles, backgroundColor: "accent.2" }}
+                    _focus={{ ...activeStyles, opacity: 0.7 }}
+                    {...(column.id === sortBy.columnId && activeStyles)}
                   >
                     <Text fontWeight={"bold"} fontSize="xs">
                       {label}
