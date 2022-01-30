@@ -20,13 +20,13 @@ const HomePage: NextPage = () => {
           {
             id: "price",
             label: "Price",
-            numeric: true, // Right Align
+            numeric: false, // Right Align
             width: "10px",
           },
           {
             id: "type",
             label: "Type",
-            numeric: true, // Right Align
+            numeric: false, // Right Align
             width: "10px",
           },
           {

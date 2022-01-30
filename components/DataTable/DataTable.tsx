@@ -109,10 +109,11 @@ const DataTable: React.FC<DataTableProps> = ({
                   ))}
               </Flex>
 
-              {columns?.map(({ id }) => (
+              {columns?.map(({ id, numeric }) => (
                 <Box
                   key={`${row.id}--${id}`}
                   data-testid={`data-table-row-cell`}
+                  textAlign={numeric ? "right" : "left"}
                 >
                   <Text fontSize="xs">{row[id] || "null"}</Text>
                 </Box>

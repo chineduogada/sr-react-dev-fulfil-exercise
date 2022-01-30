@@ -165,7 +165,7 @@ describe("DataTable Component", () => {
         shouldShowNoSortIcons?: boolean;
         cell: HTMLElement;
       }) => {
-        user.click(productColumnElement);
+        user.click(cell);
         expect(
           screen.queryAllByTestId("data-table-column-sort-up").length
         ).toBe(shouldShowNoSortIcons ? 0 : shouldShowUpSortIcon ? 1 : 0);
@@ -197,5 +197,29 @@ describe("DataTable Component", () => {
     });
   });
 
-  describe("Functionality", () => {});
+  describe("SPECIFICATIONs", () => {
+    it("Should have provision to right align numeric fields in column", () => {
+      const props = {
+        columns: [
+          {
+            id: "product",
+            label: "Product",
+            numeric: false,
+            width: "10px",
+          },
+          {
+            id: "price",
+            label: "Price",
+            numeric: true, // Right Align
+            width: "10px",
+          },
+        ],
+      };
+      setup(props);
+
+      expect(screen.getAllByTestId("data-table-row-cell")[1]).toHaveStyle(
+        "text-align: right"
+      );
+    });
+  });
 });
