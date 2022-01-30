@@ -5,10 +5,13 @@ const setup = (props = {}) => {
   render(
     <DataTable
       {...{
-        columns: [{ id: "1", label: "Name", numeric: false, width: "100px" }],
+        columns: [
+          { id: "name", label: "Name", numeric: false, width: "100px" },
+        ],
         rows: [
           {
             id: 1,
+            name: "test name",
           },
         ],
         onRowClick: jest.fn(),
@@ -285,6 +288,37 @@ describe("DataTable Component", () => {
 
       expect(onRowClick).toHaveBeenCalled();
       expect(onRowClick).toHaveBeenCalledTimes(1);
+    });
+
+    it("Should be able to select rows using checkboxes in rows or using select all checkbox in header", () => {
+      const props = {
+        rows: [
+          {
+            id: "1",
+            name: "name 1",
+          },
+          {
+            id: "1",
+            name: "name 2",
+          },
+          {
+            id: "1",
+            name: "name 3",
+          },
+        ],
+      };
+      setup(props);
+
+      let tableCheckbox = screen.getByTestId("data-table-checkbox");
+      const rowCheckboxList = screen.getAllByTestId("data-table-row-checkbox");
+      expect(rowCheckboxList.length).toBe(3);
+      expect(tableCheckbox).toBeInTheDocument();
+
+      user.click(tableCheckbox);
+      expect(tableCheckbox).toHaveAttribute("data-checked");
+      rowCheckboxList.forEach((checkbox) => {
+        expect(checkbox).toHaveAttribute("data-checked");
+      });
     });
   });
 });

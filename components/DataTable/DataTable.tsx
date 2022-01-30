@@ -15,6 +15,33 @@ const DataTable: React.FC<DataTableProps> = ({
   onRowClick,
 }) => {
   const [rows, setRows] = React.useState<Array<Row>>(originalRows);
+  const [selectedRows, setSelectedRows] = React.useState<
+    Array<{ rowId: string | number }>
+  >([]);
+
+  const handleSelectOneRow = (rowId: string | number) => {
+    if (
+      selectedRows.some(({ rowId: selectedRowId }) => selectedRowId === rowId)
+    ) {
+      setSelectedRows(
+        selectedRows.filter(
+          ({ rowId: selectedRowId }) => selectedRowId !== rowId
+        )
+      );
+    } else {
+      setSelectedRows([...selectedRows, { rowId }]);
+    }
+  };
+
+  const handleSelectAllRows = () => {
+    const newSelectedRows =
+      selectedRows.length === rows.length
+        ? []
+        : rows.map((row) => ({ rowId: row.id as string }));
+    setSelectedRows(newSelectedRows);
+  };
+
+  console.log(selectedRows);
 
   const gridTemplateColumns = columns?.reduce(
     (acc, col) => acc + (col.width ? `${col.width} ` : "1fr "),
@@ -69,6 +96,7 @@ const DataTable: React.FC<DataTableProps> = ({
             rows={rows}
             sortRowsBy={sortRowsBy}
             setSortRowsBy={setSortRowsBy}
+            onSelectAllRows={handleSelectAllRows}
           />
 
           {/* Body */}
@@ -77,6 +105,8 @@ const DataTable: React.FC<DataTableProps> = ({
             columns={columns}
             rows={rows}
             onRowClick={onRowClick}
+            onSelectOneRow={handleSelectOneRow}
+            selectedRows={selectedRows}
           />
         </Box>
       </Box>

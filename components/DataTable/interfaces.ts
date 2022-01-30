@@ -11,6 +11,7 @@ export interface TableHeadProps {
   columns: Column[];
   sortRowsBy: SortRowsByState;
   setSortRowsBy: any;
+  onSelectAllRows: () => void;
 }
 
 export interface TableBodyProps {
@@ -18,6 +19,8 @@ export interface TableBodyProps {
   rows: Row[];
   columns: Column[];
   onRowClick: (row: Row, rowIndex: number) => void;
+  onSelectOneRow: (rowId: string | number) => void;
+  selectedRows: { rowId: string | number }[];
 }
 
 // Other Types

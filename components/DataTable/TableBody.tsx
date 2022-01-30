@@ -10,6 +10,8 @@ const TableBody: React.FC<TableBodyProps> = ({
   columns,
   gridTemplateColumns,
   onRowClick,
+  onSelectOneRow,
+  selectedRows,
 }) => {
   return (
     <>
@@ -30,7 +32,16 @@ const TableBody: React.FC<TableBodyProps> = ({
           }}
         >
           <Flex alignItems="center" justifyContent={"space-between"}>
-            <Checkbox p={"3px"} />
+            <Checkbox
+              p={"3px"}
+              data-testid="data-table-row-checkbox"
+              onChange={onSelectOneRow.bind(null, row.id)}
+              isChecked={
+                selectedRows.find(({ rowId }) => rowId === row.id)
+                  ? true
+                  : false
+              }
+            />
 
             {row.image !== undefined &&
               (row.image === null ? (

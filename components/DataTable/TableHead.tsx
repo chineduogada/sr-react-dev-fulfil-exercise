@@ -11,6 +11,7 @@ const TableHead: React.FC<TableHeadProps> = ({
   columns,
   sortRowsBy,
   setSortRowsBy,
+  onSelectAllRows,
 }) => {
   const handleColumnClick = (column: Column) => {
     if (column.id !== sortRowsBy.columnId)
@@ -83,7 +84,10 @@ const TableHead: React.FC<TableHeadProps> = ({
             {...layoutStyles}
             alignItems={"center"}
           >
-            <Checkbox />
+            <Checkbox
+              data-testid="data-table-checkbox"
+              onChange={onSelectAllRows}
+            />
 
             <Icon transform="translate(2px, 2px)">
               <BsCaretDownFill />
