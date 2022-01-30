@@ -2,6 +2,7 @@
 export default interface DataTableProps {
   columns: Array<Column>;
   rows: Array<Row>;
+  onRowClick: (row: Row, rowIndex: number) => void;
 }
 
 export interface TableHeadProps {
@@ -16,6 +17,7 @@ export interface TableBodyProps {
   gridTemplateColumns: string;
   rows: Row[];
   columns: Column[];
+  onRowClick: (row: Row, rowIndex: number) => void;
 }
 
 // Other Types

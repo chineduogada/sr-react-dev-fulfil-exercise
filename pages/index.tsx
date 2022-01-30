@@ -15,25 +15,22 @@ const HomePage: NextPage = () => {
             id: "product",
             label: "Product",
             numeric: false,
-            width: "10px",
           },
           {
             id: "price",
             label: "Price",
             numeric: false, // Right Align
-            width: "10px",
           },
           {
             id: "type",
             label: "Type",
             numeric: false, // Right Align
-            width: "10px",
           },
           {
             id: "vendors",
             label: "Vendors",
             numeric: true, // Right Align
-            width: "10px",
+            width: "100px",
           },
         ]}
         rows={[
@@ -61,6 +58,9 @@ const HomePage: NextPage = () => {
             image: null,
           },
         ]}
+        onRowClick={(row, index) => {
+          console.log(row, index);
+        }}
       />
     </Box>
   );

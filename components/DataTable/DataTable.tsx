@@ -12,6 +12,7 @@ import TableHead from "./TableHead";
 const DataTable: React.FC<DataTableProps> = ({
   columns,
   rows: originalRows,
+  onRowClick,
 }) => {
   const [rows, setRows] = React.useState<Array<Row>>(originalRows);
 
@@ -75,6 +76,7 @@ const DataTable: React.FC<DataTableProps> = ({
             gridTemplateColumns={gridTemplateColumns}
             columns={columns}
             rows={rows}
+            onRowClick={onRowClick}
           />
         </Box>
       </Box>

@@ -9,10 +9,11 @@ const TableBody: React.FC<TableBodyProps> = ({
   rows,
   columns,
   gridTemplateColumns,
+  onRowClick,
 }) => {
   return (
     <>
-      {rows.map((row) => (
+      {rows.map((row, index) => (
         <Grid
           key={row.id}
           data-testid={`data-table-row`}
@@ -22,6 +23,11 @@ const TableBody: React.FC<TableBodyProps> = ({
           borderColor={layoutStyles.borderColor}
           h="60px"
           alignItems={"center"}
+          onClick={onRowClick?.bind(null, row, index)}
+          _hover={{
+            shadow: "md",
+            cursor: "pointer",
+          }}
         >
           <Flex alignItems="center" justifyContent={"space-between"}>
             <Checkbox p={"3px"} />

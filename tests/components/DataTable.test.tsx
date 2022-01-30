@@ -11,6 +11,7 @@ const setup = (props = {}) => {
             id: 1,
           },
         ],
+        onRowClick: jest.fn(),
         ...props,
       }}
     />
@@ -101,8 +102,6 @@ describe("DataTable Component", () => {
       expect(screen.getAllByTestId("data-table-row-cell").length).toBe(
         props.columns.length * props.rows.length
       );
-
-      screen.debug();
 
       expect(screen.getByText(/showing/i)).toBeInTheDocument();
       expect(screen.getByText(/rows/i)).toBeInTheDocument();
@@ -251,6 +250,41 @@ describe("DataTable Component", () => {
       expect(screen.getByTestId("data-table-head")).toHaveStyle(
         "grid-template-columns: 50px 1fr 10px 1fr"
       );
+    });
+
+    it("Should register an event when row is clicked", () => {
+      const onRowClick = jest.fn();
+      const props = {
+        onRowClick,
+        columns: [
+          {
+            id: "product",
+            label: "Product",
+            numeric: false,
+            width: "10px",
+          },
+          {
+            id: "price",
+            label: "Price",
+            numeric: true, // Right Align
+            width: "10px",
+          },
+        ],
+        rows: [
+          {
+            id: "1",
+            product: "Product 1",
+            price: "Price 1",
+          },
+        ],
+      };
+      setup(props);
+
+      const row = screen.getByTestId("data-table-row");
+      user.click(row);
+
+      expect(onRowClick).toHaveBeenCalled();
+      expect(onRowClick).toHaveBeenCalledTimes(1);
     });
   });
 });
