@@ -3,7 +3,7 @@ import Button from "components/Button/Button";
 import Input from "components/Form/Input";
 import Image from "components/Image/Image";
 import React from "react";
-import { BsCaretDownFill, BsImage } from "react-icons/bs";
+import { BsCaretDownFill, BsCaretUpFill, BsImage } from "react-icons/bs";
 import { layoutStyles } from "theme/components";
 
 interface DataTableProps {
@@ -24,7 +24,7 @@ interface DataTableProps {
 const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
   const gridTemplateColumns = columns?.reduce(
     (acc, col) => acc + "1fr ",
-    "100px "
+    rows?.[0].image !== undefined ? "100px " : "50px "
   );
 
   return (
@@ -90,11 +90,28 @@ const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
               </Flex>
 
               {columns?.map(({ id, label }) => (
-                <Box key={id} data-testid={`data-table-column`}>
+                <Flex
+                  alignItems="center"
+                  key={id}
+                  data-testid={`data-table-column`}
+                >
                   <Text fontWeight={"bold"} fontSize="xs">
                     {label}
                   </Text>
-                </Box>
+
+                  <Icon
+                    transform="translate(5px, 2px)"
+                    data-testid="data-table-column-sort-up"
+                  >
+                    <BsCaretUpFill />
+                  </Icon>
+                  <Icon
+                    transform="translate(5px, 2px)"
+                    data-testid="data-table-column-sort-down"
+                  >
+                    <BsCaretDownFill />
+                  </Icon>
+                </Flex>
               ))}
             </Grid>
           </>

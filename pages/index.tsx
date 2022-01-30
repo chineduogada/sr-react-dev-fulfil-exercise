@@ -39,20 +39,26 @@ const HomePage: NextPage = () => {
         rows={[
           {
             id: "1",
-            product: "Product 1",
+            product: "Product first",
             price: "Price 1",
             image: "https://via.placeholder.com/100",
           },
           {
             id: "2",
-            product: "Product 2",
-            price: "Price 2",
+            product: "Product two",
+            price: "'$15.5",
             image: null,
           },
           {
             id: "3",
-            product: "Product 1",
-            price: "Price 3",
+            product: "Product three",
+            price: 100.5,
+          },
+          {
+            id: "4",
+            product: "Product four",
+            price: "Price 4",
+            image: null,
           },
         ]}
       />
