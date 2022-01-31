@@ -16,8 +16,8 @@ const TableBody: React.FC<TableBodyProps> = ({
   onLastRowIsVisible,
 }) => {
   const { ref: wrapperRef, inView: lastRowIsInView } = useInView({
-    threshold: 1,
-    rootMargin: "-30px",
+    threshold: 1, // Make suer the last row is completely visible
+    rootMargin: "-40px", // Make suer the last row is completely visible
   });
 
   React.useEffect(() => {

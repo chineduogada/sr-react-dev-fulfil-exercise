@@ -4,9 +4,32 @@ import DataTable from "components/DataTable/DataTable";
 import useAlbumListingFetch from "hooks/useAlbumListingFetch";
 import React from "react";
 
-const HomePage: NextPage = () => {
+const useInfiniteScroll = (): {
+  limit: number;
+  handleInfiniteScroll: () => void;
+  handleLimitChange: (newLimit: number) => void;
+} => {
   // const [page, setPage] = React.useState(1);
-  const [limit, setLimit] = React.useState(20);
+  const [limit, setLimit] = React.useState<number>(20);
+
+  // Will setLimit and trigger a new fetch, Thus infinite scroll will be simulated
+  const handleInfiniteScroll = () => {
+    setLimit((prevLimit) => prevLimit + 20);
+  };
+
+  const handleLimitChange = (newLimit: number): void => {
+    setLimit(newLimit);
+  };
+
+  return {
+    limit,
+    handleInfiniteScroll,
+    handleLimitChange,
+  };
+};
+
+const HomePage: NextPage = () => {
+  const { limit, handleInfiniteScroll } = useInfiniteScroll();
 
   const { albums, handleFetch } = useAlbumListingFetch();
 
@@ -49,8 +72,7 @@ const HomePage: NextPage = () => {
           console.log(selectedRows);
         }}
         onLastRowIsVisible={() => {
-          console.log("last row is visible");
-          setLimit((prevLimit) => prevLimit + 20);
+          handleInfiniteScroll();
         }}
       />
     </Box>
