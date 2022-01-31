@@ -16,8 +16,6 @@ const HomePage: NextPage = () => {
 
   const albumsData = albums.data || [];
 
-  // console.log(albumsData.length);
-
   return (
     <Box maxLength="700px" mx="auto" p={10}>
       <Heading as="h1" mb={10}>
@@ -30,10 +28,13 @@ const HomePage: NextPage = () => {
           {
             id: "albumId",
             label: "Album Id",
+            width: "100px",
+            numeric: true,
           },
           {
             id: "title",
             label: "Title",
+            width: "3fr",
           },
           {
             id: "price",

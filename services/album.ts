@@ -13,7 +13,7 @@ export const getAllAlbum = async (): Promise<{
 }> => {
   const path = `/photos`;
 
-  const { data: d } = await http.get(path);
+  const d = (await (await http.get(path))?.data) || [];
 
   const data: Album[] = d.map((item: any) => ({
     id: item.id,

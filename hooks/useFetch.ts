@@ -19,13 +19,11 @@ type ReturnValue<Type> = {
     fetcher,
     onSuccess,
     onError,
-  }: HandleFetchResourceProps<Type>) => Promise<void>;
+  }: HandleFetchResourceProps<Type>) => Promise<() => void>;
   handleClearResource: () => void;
 };
 
 export function useFetch<Type>(): ReturnValue<Type> {
-  // const componentIsMount = useComponentIsMount();
-
   const [resource, setResource] = useState<Resource<Type>>({
     data: undefined,
     loading: false,
@@ -34,28 +32,29 @@ export function useFetch<Type>(): ReturnValue<Type> {
 
   const handleFetchResource = useCallback(
     async ({ fetcher, onSuccess, onError }: HandleFetchResourceProps<Type>) => {
+      let componentIsMount = true;
       setResource({ loading: true });
 
       try {
         const resource = await fetcher();
         onSuccess?.(resource);
 
-        // if (componentIsMount)
-        setResource({ data: resource });
+        if (componentIsMount) setResource({ data: resource });
       } catch (err: unknown) {
         const { message } = err as Error;
 
         console.error(err);
         onError?.(err as Error);
-        // if (componentIsMount)
-        setResource({ error: message });
+        if (componentIsMount) setResource({ error: message });
       }
+
+      return () => {
+        componentIsMount = false;
+      };
     },
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      // componentIsMount
-    ]
+    []
   );
 
   const handleClearResource = () => setResource({ data: undefined });

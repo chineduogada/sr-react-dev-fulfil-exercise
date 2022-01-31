@@ -1,22 +1,23 @@
-import { render, screen } from "../utils/test-utils";
+import { render, screen, act } from "../utils/test-utils";
 import HomePage from "pages/index";
 
 const setup = () => {
-  render(<HomePage />);
+  act(() => {
+    render(<HomePage />);
+  });
 };
 
 describe("HomePage", () => {
-  it("renders page heading", () => {
+  it("renders page heading", async () => {
     setup();
     expect(
-      screen.getByRole("heading", {
+      await screen.findByRole("heading", {
         name: /Sr. React Developer - Fulfil Recruiting Exercise/i,
       })
     ).toBeInTheDocument();
   });
-
-  it("renders DataTable", () => {
+  it("renders DataTable", async () => {
     setup();
-    expect(screen.getByTestId("data-table")).toBeInTheDocument();
+    expect(await screen.findByTestId("data-table")).toBeInTheDocument();
   });
 });
