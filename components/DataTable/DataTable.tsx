@@ -27,9 +27,6 @@ const DataTable: React.FC<DataTableProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [originalRows.length]);
 
-  //
-  // console.log(rows, originalRows);
-
   const handleSelectOneRow = (rowId: string | number) => {
     if (
       selectedRows.some(({ rowId: selectedRowId }) => selectedRowId === rowId)

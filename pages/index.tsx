@@ -46,7 +46,7 @@ const HomePage: NextPage = () => {
       </Heading>
 
       <DataTable
-        isLoading={albums.loading}
+        // SPECIFICATIONs Props
         columns={[
           {
             id: "albumId",
@@ -71,6 +71,8 @@ const HomePage: NextPage = () => {
         onSelectionChange={(selectedRows) => {
           console.log(selectedRows);
         }}
+        // Props To Provision infinite scroll
+        isLoading={albums.loading}
         onLastRowIsVisible={() => {
           handleInfiniteScroll();
         }}

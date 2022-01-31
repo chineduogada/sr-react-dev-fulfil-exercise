@@ -1,11 +1,13 @@
 // Components Interfaces
 export default interface DataTableProps {
-  isLoading?: boolean;
+  // SPECIFICATIONs Props
   columns: Array<Column>;
   rows: Array<Row>;
   onRowClick: (row: Row, rowIndex: number) => void;
   onSelectionChange: (selectedRows: string[] | "All") => void;
 
+  // Props To Provision infinite scroll
+  isLoading?: boolean;
   onLastRowIsVisible?: () => void; // To Trigger infinite scroll
 }
 
