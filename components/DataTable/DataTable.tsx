@@ -14,6 +14,7 @@ const DataTable: React.FC<DataTableProps> = ({
   columns,
   rows: originalRows,
   onRowClick,
+  onSelectionChange,
 }) => {
   const [rows, setRows] = React.useState<Array<Row>>(originalRows);
   const [selectedRows, setSelectedRows] = React.useState<
@@ -24,13 +25,17 @@ const DataTable: React.FC<DataTableProps> = ({
     if (
       selectedRows.some(({ rowId: selectedRowId }) => selectedRowId === rowId)
     ) {
-      setSelectedRows(
-        selectedRows.filter(
-          ({ rowId: selectedRowId }) => selectedRowId !== rowId
-        )
+      const newSelectedRows = selectedRows.filter(
+        ({ rowId: selectedRowId }) => selectedRowId !== rowId
       );
+      onSelectionChange(newSelectedRows.map(({ rowId }) => `${rowId}`));
+
+      setSelectedRows(newSelectedRows);
     } else {
-      setSelectedRows([...selectedRows, { rowId }]);
+      const newSelectedRows = [...selectedRows, { rowId }];
+      onSelectionChange(newSelectedRows.map(({ rowId }) => `${rowId}`));
+
+      setSelectedRows(newSelectedRows);
     }
   };
 
@@ -40,6 +45,7 @@ const DataTable: React.FC<DataTableProps> = ({
         ? []
         : rows.map((row) => ({ rowId: row.id as string }));
     setSelectedRows(newSelectedRows);
+    onSelectionChange("All");
   };
 
   console.log(selectedRows);

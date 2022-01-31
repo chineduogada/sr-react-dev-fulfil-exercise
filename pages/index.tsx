@@ -19,12 +19,7 @@ const HomePage: NextPage = () => {
           {
             id: "price",
             label: "Price",
-            numeric: false, // Right Align
-          },
-          {
-            id: "type",
-            label: "Type",
-            numeric: false, // Right Align
+            numeric: false,
           },
           {
             id: "vendors",
@@ -39,27 +34,27 @@ const HomePage: NextPage = () => {
             product: "Product first",
             price: "Price 1",
             image: "https://via.placeholder.com/100",
+            vendors: "Vendor 1",
           },
           {
             id: "2",
             product: "Product two",
             price: "'$15.5",
             image: null,
+            vendor: "Vendor 2",
           },
           {
             id: "3",
             product: "Product three",
             price: 100.5,
-          },
-          {
-            id: "4",
-            product: "Product four",
-            price: "Price 4",
-            image: null,
+            vendor: "Vendor 3",
           },
         ]}
         onRowClick={(row, index) => {
           console.log(row, index);
+        }}
+        onSelectionChange={(selectedRows) => {
+          console.log(selectedRows);
         }}
       />
     </Box>

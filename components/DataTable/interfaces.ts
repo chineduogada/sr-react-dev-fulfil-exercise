@@ -4,6 +4,7 @@ export default interface DataTableProps {
   columns: Array<Column>;
   rows: Array<Row>;
   onRowClick: (row: Row, rowIndex: number) => void;
+  onSelectionChange: (selectedRows: string[] | "All") => void;
 }
 
 export interface TableHeadProps {

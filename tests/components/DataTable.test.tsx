@@ -15,6 +15,7 @@ const setup = (props = {}) => {
           },
         ],
         onRowClick: jest.fn(),
+        onSelectionChange: jest.fn(),
         ...props,
       }}
     />
@@ -292,6 +293,7 @@ describe("DataTable Component", () => {
 
     it("Should be able to select rows using checkboxes in rows or using select all checkbox in header", () => {
       const props = {
+        onSelectionChange: jest.fn(),
         rows: [
           {
             id: "1",
@@ -319,6 +321,12 @@ describe("DataTable Component", () => {
       rowCheckboxList.forEach((checkbox) => {
         expect(checkbox).toHaveAttribute("data-checked");
       });
+      user.click(rowCheckboxList[0]);
+      expect(rowCheckboxList[0]).not.toHaveAttribute("data-checked");
+      expect(tableCheckbox).not.toHaveAttribute("data-checked");
+
+      expect(props.onSelectionChange).toHaveBeenCalled();
+      expect(props.onSelectionChange).toHaveBeenCalledTimes(2);
     });
 
     it("Should have provision to infinite scroll", () => {
