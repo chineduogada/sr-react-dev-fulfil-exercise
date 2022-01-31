@@ -5,7 +5,8 @@ export default interface DataTableProps {
   rows: Array<Row>;
   onRowClick: (row: Row, rowIndex: number) => void;
   onSelectionChange: (selectedRows: string[] | "All") => void;
-
+  hasError?: boolean | string | Error;
+  onErrorRetry?: () => Promise<void>;
   // Props To Provision infinite scroll
   isLoading?: boolean;
   onLastRowIsVisible?: () => void; // To Trigger infinite scroll

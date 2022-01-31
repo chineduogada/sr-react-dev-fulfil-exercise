@@ -1,8 +1,9 @@
-import { Box, Center, Flex, Spinner } from "@chakra-ui/react";
+import { Box, Center, Flex, Spinner, Stack } from "@chakra-ui/react";
 import Button from "components/Button/Button";
 import Input from "components/Form/Input";
 import React from "react";
 import { BsCaretDownFill } from "react-icons/bs";
+import { BiErrorCircle } from "react-icons/bi";
 import { layoutStyles } from "theme/components";
 import { handleSortRowsAlphabetically } from "./helpers";
 import DataTableProps, { Row, SortRowsByState } from "./interfaces";
@@ -11,8 +12,10 @@ import TableHead from "./TableHead";
 
 const DataTable: React.FC<DataTableProps> = ({
   isLoading,
+  hasError,
   columns,
   rows: originalRows,
+  onErrorRetry,
   onRowClick,
   onSelectionChange,
   onLastRowIsVisible,
@@ -122,9 +125,20 @@ const DataTable: React.FC<DataTableProps> = ({
             onLastRowIsVisible={onLastRowIsVisible}
           />
 
-          {isLoading && (
+          {(isLoading || hasError) && (
             <Center data-testid="data-table-loading" p={10}>
-              <Spinner />
+              {isLoading && <Spinner />}
+              {hasError && (
+                <Stack alignItems="center" color="red">
+                  <Box fontSize="4xl">
+                    <BiErrorCircle />
+                  </Box>
+
+                  <Button onClick={onErrorRetry} color="red">
+                    Retry
+                  </Button>
+                </Stack>
+              )}
             </Center>
           )}
         </Box>

@@ -33,21 +33,21 @@ export function useFetch<Type>(): ReturnValue<Type> {
   const handleFetchResource = useCallback(
     async ({ fetcher, onSuccess, onError }: HandleFetchResourceProps<Type>) => {
       let componentIsMount = true;
-      setResource((prev) => ({ ...prev, loading: true }));
+      setResource((prev) => ({ ...prev, loading: true, error: undefined }));
 
       try {
         const resource = await fetcher();
         onSuccess?.(resource);
 
         if (componentIsMount)
-          setResource((prev) => ({ ...prev, data: resource }));
+          setResource((prev) => ({ ...prev, data: resource, loading: false }));
       } catch (err: unknown) {
         const { message } = err as Error;
 
         console.error(err);
         onError?.(err as Error);
         if (componentIsMount)
-          setResource((prev) => ({ ...prev, error: message }));
+          setResource((prev) => ({ ...prev, error: message, loading: false }));
       }
 
       return () => {

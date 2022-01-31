@@ -71,6 +71,8 @@ const HomePage: NextPage = () => {
         onSelectionChange={(selectedRows) => {
           console.log(selectedRows);
         }}
+        hasError={albums.error}
+        onErrorRetry={() => handleFetch({ limit })}
         // Props To Provision infinite scroll
         isLoading={albums.loading}
         onLastRowIsVisible={() => {
