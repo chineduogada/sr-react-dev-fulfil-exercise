@@ -21,6 +21,14 @@ const DataTable: React.FC<DataTableProps> = ({
     Array<{ rowId: string | number }>
   >([]);
 
+  React.useEffect(() => {
+    setRows(originalRows);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [originalRows.length]);
+
+  //
+  console.log(rows, originalRows);
+
   const handleSelectOneRow = (rowId: string | number) => {
     if (
       selectedRows.some(({ rowId: selectedRowId }) => selectedRowId === rowId)
@@ -48,11 +56,9 @@ const DataTable: React.FC<DataTableProps> = ({
     onSelectionChange("All");
   };
 
-  console.log(selectedRows);
-
   const gridTemplateColumns = columns?.reduce(
     (acc, col) => acc + (col.width ? `${col.width} ` : "1fr "),
-    rows?.[0].image !== undefined ? "100px " : "50px "
+    rows?.[0]?.image !== undefined ? "100px " : "50px "
   );
 
   const [sortRowsBy, setSortRowsBy] = React.useState<SortRowsByState>({});

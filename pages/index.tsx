@@ -1,8 +1,23 @@
 import type { NextPage } from "next";
 import { Box, Heading } from "@chakra-ui/react";
 import DataTable from "components/DataTable/DataTable";
+import useAlbumListingFetch from "hooks/useAlbumListingFetch";
+import React from "react";
 
 const HomePage: NextPage = () => {
+  // const [page, setPage] = React.useState(1);
+  const [limit, setLimit] = React.useState(50);
+
+  const { albums, handleFetch } = useAlbumListingFetch();
+
+  React.useEffect(() => {
+    handleFetch({ limit });
+  }, [handleFetch, limit]);
+
+  const albumsData = albums.data || [];
+
+  // console.log(albumsData.length);
+
   return (
     <Box maxLength="700px" mx="auto" p={10}>
       <Heading as="h1" mb={10}>
@@ -10,46 +25,22 @@ const HomePage: NextPage = () => {
       </Heading>
 
       <DataTable
+        isLoading={albums.loading}
         columns={[
           {
-            id: "product",
-            label: "Product",
-            numeric: false,
+            id: "albumId",
+            label: "Album Id",
+          },
+          {
+            id: "title",
+            label: "Title",
           },
           {
             id: "price",
             label: "Price",
-            numeric: false,
-          },
-          {
-            id: "vendors",
-            label: "Vendors",
-            numeric: true, // Right Align
-            width: "100px",
           },
         ]}
-        rows={[
-          {
-            id: "1",
-            product: "Product first",
-            price: "Price 1",
-            image: "https://via.placeholder.com/100",
-            vendors: "Vendor 1",
-          },
-          {
-            id: "2",
-            product: "Product two",
-            price: "'$15.5",
-            image: null,
-            vendor: "Vendor 2",
-          },
-          {
-            id: "3",
-            product: "Product three",
-            price: 100.5,
-            vendor: "Vendor 3",
-          },
-        ]}
+        rows={albumsData}
         onRowClick={(row, index) => {
           console.log(row, index);
         }}

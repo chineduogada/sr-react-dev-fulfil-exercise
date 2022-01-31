@@ -30,7 +30,7 @@ export interface TableBodyProps {
 export type Column = {
   id: string;
   label: string;
-  numeric: boolean;
+  numeric?: boolean;
   width?: string;
 };
 
