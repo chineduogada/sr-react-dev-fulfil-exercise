@@ -356,5 +356,24 @@ describe("DataTable Component", () => {
       expect(screen.getAllByTestId("data-table-row").length).toBe(2);
       expect(screen.getAllByTestId("data-table-loading").length).toBe(1);
     });
+
+    it("Should be designed for scale, i.e. should be able to handle 50,000 rows", () => {
+      const handleAndAssertRows = (nRows: number) => {
+        const props = {
+          rows: Array.from({ length: nRows }, (_, i) => ({
+            id: i.toString(),
+            name: `name ${i}`,
+          })),
+        };
+        setup(props);
+        expect(screen.getAllByTestId("data-table-row").length).toBe(nRows);
+        expect(screen.getByText(nRows)).toBeInTheDocument();
+
+        cleanup();
+      };
+
+      handleAndAssertRows(50000);
+      handleAndAssertRows(70000);
+    });
   });
 });
