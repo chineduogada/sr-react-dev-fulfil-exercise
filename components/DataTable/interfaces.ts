@@ -5,6 +5,8 @@ export default interface DataTableProps {
   rows: Array<Row>;
   onRowClick: (row: Row, rowIndex: number) => void;
   onSelectionChange: (selectedRows: string[] | "All") => void;
+
+  onLastRowIsVisible?: () => void; // To Trigger infinite scroll
 }
 
 export interface TableHeadProps {
@@ -21,9 +23,10 @@ export interface TableBodyProps {
   gridTemplateColumns: string;
   rows: Row[];
   columns: Column[];
+  selectedRows: { rowId: string | number }[];
   onRowClick: (row: Row, rowIndex: number) => void;
   onSelectOneRow: (rowId: string | number) => void;
-  selectedRows: { rowId: string | number }[];
+  onLastRowIsVisible?: () => void; // To Trigger infinite scroll
 }
 
 // Other Types

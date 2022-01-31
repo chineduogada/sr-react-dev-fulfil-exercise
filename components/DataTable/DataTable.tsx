@@ -3,7 +3,6 @@ import Button from "components/Button/Button";
 import Input from "components/Form/Input";
 import React from "react";
 import { BsCaretDownFill } from "react-icons/bs";
-import { useInView } from "react-intersection-observer";
 import { layoutStyles } from "theme/components";
 import { handleSortRowsAlphabetically } from "./helpers";
 import DataTableProps, { Row, SortRowsByState } from "./interfaces";
@@ -16,6 +15,7 @@ const DataTable: React.FC<DataTableProps> = ({
   rows: originalRows,
   onRowClick,
   onSelectionChange,
+  onLastRowIsVisible,
 }) => {
   const [rows, setRows] = React.useState<Array<Row>>(originalRows);
   const [selectedRows, setSelectedRows] = React.useState<
@@ -72,73 +72,67 @@ const DataTable: React.FC<DataTableProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortRowsBy.columnId, sortRowsBy.up, sortRowsBy.down]);
 
-  const { ref: wrapperRef, inView } = useInView({
-    threshold: 0.4,
-    delay: 1000,
-  });
-
   return (
-    <div ref={wrapperRef}>
-      <Box
-        {...layoutStyles}
-        as="section"
-        data-testid="data-table"
-        py={5}
-        shadow="0 0 2px rgba(0, 0, 0, .1)"
+    <Box
+      {...layoutStyles}
+      as="section"
+      data-testid="data-table"
+      py={5}
+      shadow="0 0 2px rgba(0, 0, 0, .1)"
+    >
+      <Flex
+        mb={5}
+        borderBottom={layoutStyles.border}
+        borderColor={layoutStyles.borderColor}
       >
-        <Flex
-          mb={5}
-          borderBottom={layoutStyles.border}
-          borderColor={layoutStyles.borderColor}
-        >
-          <Button tabItem data-testid="tab-item" ml={5}>
-            All
+        <Button tabItem data-testid="tab-item" ml={5}>
+          All
+        </Button>
+      </Flex>
+
+      <Box px={5}>
+        <Flex as="header">
+          <Button rightIcon={<BsCaretDownFill />} roundedRight="none">
+            Filter
           </Button>
+          <Input
+            placeholder="Search products"
+            aria-label="Search products"
+            roundedLeft="none"
+          />
         </Flex>
 
-        <Box px={5}>
-          <Flex as="header">
-            <Button rightIcon={<BsCaretDownFill />} roundedRight="none">
-              Filter
-            </Button>
-            <Input
-              placeholder="Search products"
-              aria-label="Search products"
-              roundedLeft="none"
-            />
-          </Flex>
+        <Box mt={5}>
+          {/* Head */}
+          <TableHead
+            gridTemplateColumns={gridTemplateColumns}
+            columns={columns}
+            rows={rows}
+            sortRowsBy={sortRowsBy}
+            setSortRowsBy={setSortRowsBy}
+            onSelectAllRows={handleSelectAllRows}
+            selectedRowsCount={selectedRows.length}
+          />
 
-          <Box mt={5}>
-            {/* Head */}
-            <TableHead
-              gridTemplateColumns={gridTemplateColumns}
-              columns={columns}
-              rows={rows}
-              sortRowsBy={sortRowsBy}
-              setSortRowsBy={setSortRowsBy}
-              onSelectAllRows={handleSelectAllRows}
-              selectedRowsCount={selectedRows.length}
-            />
+          {/* Body */}
+          <TableBody
+            gridTemplateColumns={gridTemplateColumns}
+            columns={columns}
+            rows={rows}
+            selectedRows={selectedRows}
+            onRowClick={onRowClick}
+            onSelectOneRow={handleSelectOneRow}
+            onLastRowIsVisible={onLastRowIsVisible}
+          />
 
-            {/* Body */}
-            <TableBody
-              gridTemplateColumns={gridTemplateColumns}
-              columns={columns}
-              rows={rows}
-              onRowClick={onRowClick}
-              onSelectOneRow={handleSelectOneRow}
-              selectedRows={selectedRows}
-            />
-
-            {isLoading && (
-              <Center data-testid="data-table-loading" p={10}>
-                <Spinner />
-              </Center>
-            )}
-          </Box>
+          {isLoading && (
+            <Center data-testid="data-table-loading" p={10}>
+              <Spinner />
+            </Center>
+          )}
         </Box>
       </Box>
-    </div>
+    </Box>
   );
 };
 

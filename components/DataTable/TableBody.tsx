@@ -2,6 +2,7 @@ import { Box, Checkbox, Flex, Grid, Text } from "@chakra-ui/react";
 import Image from "components/Image/Image";
 import React from "react";
 import { BsImage } from "react-icons/bs";
+import { useInView } from "react-intersection-observer";
 import { layoutStyles } from "theme/components";
 import { TableBodyProps } from "./interfaces";
 
@@ -9,14 +10,30 @@ const TableBody: React.FC<TableBodyProps> = ({
   rows,
   columns,
   gridTemplateColumns,
+  selectedRows,
   onRowClick,
   onSelectOneRow,
-  selectedRows,
+  onLastRowIsVisible,
 }) => {
+  const { ref: wrapperRef, inView: lastRowIsInView } = useInView({
+    threshold: 1,
+    rootMargin: "-30px",
+  });
+
+  React.useEffect(() => {
+    if (lastRowIsInView) {
+      onLastRowIsVisible?.();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastRowIsInView]);
+
   return (
     <>
       {rows.map((row, index) => (
         <Grid
+          // Only wrap the last row with the intersection observer
+          ref={index === rows.length - 1 ? wrapperRef : undefined}
+          //
           key={row.id}
           data-testid={`data-table-row`}
           gridTemplateColumns={gridTemplateColumns}

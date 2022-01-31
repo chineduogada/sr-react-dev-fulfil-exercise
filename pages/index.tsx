@@ -6,7 +6,7 @@ import React from "react";
 
 const HomePage: NextPage = () => {
   // const [page, setPage] = React.useState(1);
-  const [limit, setLimit] = React.useState(50);
+  const [limit, setLimit] = React.useState(20);
 
   const { albums, handleFetch } = useAlbumListingFetch();
 
@@ -47,6 +47,10 @@ const HomePage: NextPage = () => {
         }}
         onSelectionChange={(selectedRows) => {
           console.log(selectedRows);
+        }}
+        onLastRowIsVisible={() => {
+          console.log("last row is visible");
+          setLimit((prevLimit) => prevLimit + 20);
         }}
       />
     </Box>
