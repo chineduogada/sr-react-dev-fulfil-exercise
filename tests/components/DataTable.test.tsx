@@ -1,5 +1,5 @@
 import DataTable from "components/DataTable/DataTable";
-import { render, screen, user } from "../utils/test-utils";
+import { render, screen, user, cleanup } from "../utils/test-utils";
 
 const setup = (props = {}) => {
   render(
@@ -319,6 +319,34 @@ describe("DataTable Component", () => {
       rowCheckboxList.forEach((checkbox) => {
         expect(checkbox).toHaveAttribute("data-checked");
       });
+    });
+
+    it("Should have provision to infinite scroll", () => {
+      let props = {
+        isLoading: false,
+      };
+      setup(props);
+      expect(screen.queryAllByTestId("data-table-loading").length).toBe(0);
+
+      cleanup();
+
+      let newProps = {
+        isLoading: true,
+        rows: [
+          {
+            id: "1",
+            name: "name 1",
+          },
+          {
+            id: "2",
+            name: "name 2",
+          },
+        ],
+      };
+      setup(newProps);
+
+      expect(screen.getAllByTestId("data-table-row").length).toBe(2);
+      expect(screen.getAllByTestId("data-table-loading").length).toBe(1);
     });
   });
 });

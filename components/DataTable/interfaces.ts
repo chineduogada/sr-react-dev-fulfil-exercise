@@ -1,5 +1,6 @@
 // Components Interfaces
 export default interface DataTableProps {
+  isLoading?: boolean;
   columns: Array<Column>;
   rows: Array<Row>;
   onRowClick: (row: Row, rowIndex: number) => void;

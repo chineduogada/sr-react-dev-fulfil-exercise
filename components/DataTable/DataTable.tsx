@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Center, Flex, Spinner } from "@chakra-ui/react";
 import Button from "components/Button/Button";
 import Input from "components/Form/Input";
 import React from "react";
@@ -10,6 +10,7 @@ import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 
 const DataTable: React.FC<DataTableProps> = ({
+  isLoading,
   columns,
   rows: originalRows,
   onRowClick,
@@ -109,6 +110,12 @@ const DataTable: React.FC<DataTableProps> = ({
             onSelectOneRow={handleSelectOneRow}
             selectedRows={selectedRows}
           />
+
+          {isLoading && (
+            <Center data-testid="data-table-loading" p={10}>
+              <Spinner />
+            </Center>
+          )}
         </Box>
       </Box>
     </Box>
