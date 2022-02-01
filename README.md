@@ -31,4 +31,4 @@ yarn test
 
 ## View App in Production
 
-Here is the production link to this [Data Table](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) project.
+Here is the production link to this [Data Table App](https://sr-react-dev-fulfil-exercise.vercel.app/) project.
