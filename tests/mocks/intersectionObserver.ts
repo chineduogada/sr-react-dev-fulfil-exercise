@@ -1,4 +1,4 @@
-class MockIntersectionObserver {
+export class MockIntersectionObserver {
   readonly root: Element | null;
 
   readonly rootMargin: string;
