@@ -1,5 +1,9 @@
 module.exports = {
-  setupFilesAfterEnv: ["./jest.setup.ts"],
+  setupFilesAfterEnv: [
+    "./jest.setup.js",
+    "./tests/mocks/intersectionObserver.ts",
+    "./tests/mocks/fetchCalls.ts",
+  ],
   moduleNameMapper: {
     "^components(.*)$": "<rootDir>/components$1",
     "^pages(.*)$": "<rootDir>/pages$1",
