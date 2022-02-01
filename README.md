@@ -1,5 +1,6 @@
 # Senior React Dev Fulfil.io's DataTable Assignment
 
+
 ## Getting Started
 
 First, clone this repository:
@@ -7,6 +8,7 @@ First, clone this repository:
 ```bash
 git clone https://github.com/chineduogada/sr-react-dev-fulfil-exercise
 ```
+
 
 ## Test the project Manually
 `cd` into the project's directory, and run the development server:
@@ -21,6 +23,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
+
 ## Run the Automated tests
 
 ```bash
@@ -28,6 +31,7 @@ npm test
 # or
 yarn test
 ```
+
 
 ## View App in Production
 
