@@ -6,7 +6,7 @@ describe("HomePage", () => {
     render(<HomePage />);
     expect(
       screen.getByRole("heading", {
-        name: /Sr. React Developer - Fulfil Recruiting Exercisez/i,
+        name: /Sr. React Developer - Fulfil Recruiting Exercise/i,
       })
     ).toBeInTheDocument();
   });
