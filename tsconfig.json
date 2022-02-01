@@ -20,7 +20,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "tests/utils/test-utils.js"
+    "tests/utils/test-utils.ts",
+, "jest.config.js"    "jest.config.js"
   ],
   "exclude": ["node_modules"]
 }
