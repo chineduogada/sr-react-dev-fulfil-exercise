@@ -6,11 +6,11 @@ const useTableInfiniteScroll = (): {
   handleLimitChange: (newLimit: number) => void;
 } => {
   // const [page, setPage] = React.useState(1);
-  const [limit, setLimit] = React.useState<number>(500);
+  const [limit, setLimit] = React.useState<number>(50);
 
   // Will setLimit and trigger a new fetch, Thus infinite scroll will be simulated
   const handleInfiniteScroll = () => {
-    setLimit((prevLimit) => prevLimit + 500);
+    setLimit((prevLimit) => prevLimit + 50);
   };
 
   const handleLimitChange = (newLimit: number): void => {
